@@ -13,7 +13,7 @@ useEffect(() => {
 fetchBudget(1)
 
 return () =>{
-  console.log(fetchBudget)
+  console.log(budget)
 }
 }, [fetchBudget])
   const { i18n } = useTranslation();
