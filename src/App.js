@@ -15,10 +15,6 @@ function App({ budget, fetchBudget, fetchBudgetedCategories }) {
   useEffect(() => {
     fetchBudget(1);
     fetchBudgetedCategories(1);
-
-    return () => {
-      console.log(budget);
-    };
   }, [fetchBudget, fetchBudgetedCategories]);
   const { i18n } = useTranslation();
 
