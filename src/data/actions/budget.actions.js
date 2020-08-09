@@ -1,4 +1,5 @@
 import {
+  BUDGET_GET,
   BUDGET_GET_REQUEST,
   BUDGET_GET_SUCCESS,
   BUDGET_GET_FAILURE,
@@ -13,7 +14,8 @@ export const fetchBudget = (id) => (dispatch) => {
   const promise = API.budget.fetchBudget(id);
 
   dispatch({
-    promise
+    type: BUDGET_GET,
+    promise,
   })
 
   dispatch({
