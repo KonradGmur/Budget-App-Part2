@@ -14,7 +14,13 @@ export default promiseMiddleware() {
             next({type: REQUEST, ...rest})
 
             return promise
-            .then()
+            .then(response => response.json())
+            .then(data => {
+                next({type: SUCCESS, payload:data, ...rest })
+            })
+            .catch(error =>{
+                next({type: FAILURE, error, ...rest})
+            })
         }
     }
 }

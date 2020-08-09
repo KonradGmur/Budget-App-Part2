@@ -1,8 +1,5 @@
 import {
   BUDGET_GET,
-  BUDGET_GET_REQUEST,
-  BUDGET_GET_SUCCESS,
-  BUDGET_GET_FAILURE,
   BUDGET_CATEGORIES_GET_REQUEST,
   BUDGET_CATEGORIES_GET_SUCCESS,
   BUDGET_CATEGORIES_GET_FAILURE,
@@ -16,25 +13,7 @@ export const fetchBudget = (id) => (dispatch) => {
   dispatch({
     type: BUDGET_GET,
     promise,
-  })
-
-  dispatch({
-    type: BUDGET_GET_REQUEST,
   });
-
-  try {
-    const response = await API.budget.fetchBudget(id);
-    const data = await response.json();
-
-    dispatch({
-      type: BUDGET_GET_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: BUDGET_GET_FAILURE,
-    });
-  }
 };
 
 export const fetchBudgetedCategories = (id) => async (dispatch) => {
