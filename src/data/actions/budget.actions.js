@@ -9,7 +9,13 @@ import {
 
 import API from "data/fetch";
 
-export const fetchBudget = (id) => async (dispatch) => {
+export const fetchBudget = (id) => (dispatch) => {
+  const promise = API.budget.fetchBudget(id);
+
+  dispatch({
+    promise
+  })
+
   dispatch({
     type: BUDGET_GET_REQUEST,
   });
