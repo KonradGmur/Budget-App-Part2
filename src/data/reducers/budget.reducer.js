@@ -9,7 +9,7 @@ import {
 } from "data/constants";
 
 const initialState = {
-  loadingState: {},
+  loadingState: null,
   budget: {},
   budgetCategories: [],
 };
