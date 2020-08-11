@@ -7,6 +7,7 @@ import {
 import { fetchAllCategories } from "data/actions/common.actions";
 import { Grid } from "./Budget.css";
 import { LoadingIndicator } from "components";
+import BudgetCategoryList from "pages/Budget/components/BudgetCategoryList";
 
 function Budget({
   commonState,
@@ -34,7 +35,11 @@ function Budget({
   return (
     <Grid>
       <section>
-        {isLoaded ? "Category List" : <LoadingIndicator></LoadingIndicator>}
+        {isLoaded ? (
+          <BudgetCategoryList></BudgetCategoryList>
+        ) : (
+          <LoadingIndicator></LoadingIndicator>
+        )}
       </section>
       <section>
         {isLoaded ? "Transaction List" : <LoadingIndicator></LoadingIndicator>}
