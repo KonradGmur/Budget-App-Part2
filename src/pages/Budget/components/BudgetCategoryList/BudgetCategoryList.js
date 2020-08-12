@@ -22,10 +22,10 @@ function BudgetCategoryList({ budgetedCategories, allCategories }) {
         <ParentCategory name={parentName} onClick={() => onClick(parentName)} />
       ),
       children: categories.map((budgetedCategory) => {
-        const name = allCategories.find(
+        const { name } = allCategories.find(
           (category) => category.id === budgetedCategory.categoryId
         );
-        return <CategoryItem name={name} />;
+        return <CategoryItem key={budgetedCategory.id} name={name} />;
       }),
     })
   );
