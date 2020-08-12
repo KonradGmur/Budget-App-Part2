@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { groupBy } from "lodash";
 import { ToggleableList } from "components";
+import ParentCategory from './ParentCategory';
 
 function BudgetCategoryList({ budgetedCategories, allCategories }) {
   const budgetedCategoriesByParent = groupBy(
@@ -16,16 +17,19 @@ function BudgetCategoryList({ budgetedCategories, allCategories }) {
   const listItems = Object.entries(budgetedCategoriesByParent).map(([parentName, categories]) =>({
     id: parentName,
     Trigger: ({onClick}) =>(
-
+      <ParentCategory
+      name={parentName}
+      onClick={onClick}
+      />
     ),
     children: categories.map(category =>(
-      
+
     ))
   }))
 
   return (
     <div>
-      <ToggleableList items={[]} />
+      <ToggleableList items={listItems} />
     </div>
   );
 }
