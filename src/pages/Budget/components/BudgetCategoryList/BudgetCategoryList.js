@@ -13,6 +13,16 @@ function BudgetCategoryList({ budgetedCategories, allCategories }) {
 
   console.log(budgetedCategoriesByParent);
 
+  const listItems = Object.entries(budgetedCategoriesByParent).map(([parentName, categories]) =>({
+    id: parentName,
+    Trigger: ({onClick}) =>(
+
+    ),
+    children: categories.map(category =>(
+      
+    ))
+  }))
+
   return (
     <div>
       <ToggleableList items={[]} />
