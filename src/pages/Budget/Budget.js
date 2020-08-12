@@ -30,8 +30,6 @@ function Budget({
     [commonState, budgetState]
   );
 
-  console.log(isLoaded);
-
   return (
     <Grid>
       <section>
