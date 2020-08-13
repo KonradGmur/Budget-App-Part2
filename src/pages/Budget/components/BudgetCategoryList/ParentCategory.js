@@ -5,8 +5,9 @@ import {
 } from "./BudgetCategoryList.css";
 import { formatCurrency } from "utils";
 
-function ParentCategory({ name, onClick, categories, transactions }) {
+function ParentCategory({ name, onClick, categories, transactions, amount }) {
   const categoryLeftValue = useMemo(() => {
+    if (!!amount) return null;
     const budgeted = (() => {
       try {
         return categories.reduce((acc, category) => acc + category.budget, 0);

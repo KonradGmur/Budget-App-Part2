@@ -42,8 +42,14 @@ function BudgetCategoryList({ budgetedCategories, allCategories, budget }) {
     })
   );
 
+  const totalSpent = budget.transactions.reduce(
+    (acc, transaction) => acc + transaction.amount,
+    0
+  );
+  const restToSpent = budget.totalAmount - totalSpent;
   return (
     <div>
+      <ParentCategory name={budget.name} amount={restToSpent} />
       <ToggleableList items={listItems} />
     </div>
   );
