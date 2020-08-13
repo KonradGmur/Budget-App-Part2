@@ -28,12 +28,17 @@ function ParentCategory({ name, onClick, categories, transactions, amount }) {
 
     const totalLeft = budgeted ? budgeted - spentOnParentCategory : null;
     return totalLeft;
-  }, [categories, transactions]);
+  }, [categories, transactions, amount]);
+
+  const amountValue = useMemo(() => amount || categoryLeftValue, [
+    amount,
+    categoryLeftValue,
+  ]);
   return (
     <Root onClick={onClick}>
       <span>{name}</span>
       <CategoryAmount negative={categoryLeftValue < 0}>
-        {formatCurrency(categoryLeftValue)}
+        {formatCurrency(amountValue)}
       </CategoryAmount>
     </Root>
   );
