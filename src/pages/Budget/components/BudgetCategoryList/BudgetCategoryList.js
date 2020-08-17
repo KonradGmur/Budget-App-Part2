@@ -76,20 +76,27 @@ function BudgetCategoryList({ budgetedCategories, allCategories, budget }) {
     budget.totalAmount - amountTaken - notBudgetedExpenses;
 
   return (
-    <div
-      css={`
-        border-bottom: 5px solid ${({ theme }) => theme.colors.gray.light};
-      `}
-    >
-      <div>
+    <div>
+      <div
+        css={`
+          border-bottom: 5px solid ${({ theme }) => theme.colors.gray.light};
+        `}
+      >
         <ParentCategory name={budget.name} amount={restToSpent} />
       </div>
 
       <ToggleableList items={listItems} />
-      <ParentCategory
-        name={t("Other categories")}
-        amount={availableForRestCategories}
-      />
+
+      <div
+        css={`
+          border-bottom: 5px solid ${({ theme }) => theme.colors.gray.light};
+        `}
+      >
+        <ParentCategory
+          name={t("Other categories")}
+          amount={availableForRestCategories}
+        />
+      </div>
     </div>
   );
 }
