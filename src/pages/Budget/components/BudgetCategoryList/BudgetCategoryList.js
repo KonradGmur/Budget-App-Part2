@@ -47,6 +47,17 @@ function BudgetCategoryList({ budgetedCategories, allCategories, budget }) {
     0
   );
   const restToSpent = budget.totalAmount - totalSpent;
+  const amountTaken = budgetedCategories.reduce((acc, budgetedCategory) => {
+    const categoryTransactions = budget.transactions.filter(
+      (transaction) => transaction.categoryId === budgetedCategory.id
+    );
+    const categoryExpenses = categoryTransactions.reduce(
+      (acc, transaction) => acc + transaction.amount,
+      0
+    );
+
+    return acc + Math.max(categoryExpenses, budgetedCategory.budget);
+  });
   return (
     <div>
       <ParentCategory name={budget.name} amount={restToSpent} />
