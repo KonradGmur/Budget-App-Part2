@@ -57,7 +57,21 @@ function BudgetCategoryList({ budgetedCategories, allCategories, budget }) {
     );
 
     return acc + Math.max(categoryExpenses, budgetedCategory.budget);
+  }, 0);
+
+  const notBudgetedTransaction = budget.transactions.filter((transaction) => {
+    return !budgetedCategories.find(
+      (budgetedCategory) => budgetedCategory.id === transaction.categoryId
+    );
   });
+
+  const notBudgetedExpenses = notBudgetedTransaction.reduce(
+    (acc, transaction) => acc + transaction.amount,
+    0
+  );
+  const availableForRestCategories =
+    budget.totalAmount - amountTaken - notBudgetedExpenses;
+
   return (
     <div>
       <ParentCategory name={budget.name} amount={restToSpent} />
