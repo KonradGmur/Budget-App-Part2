@@ -4,8 +4,11 @@ import { groupBy } from "lodash";
 import { ToggleableList } from "components";
 import ParentCategory from "./ParentCategory";
 import CategoryItem from "./CategoryItem";
+import { useTranslation } from "react-i18next";
+import "styled-components/macro";
 
 function BudgetCategoryList({ budgetedCategories, allCategories, budget }) {
+  const { t } = useTranslation();
   const budgetedCategoriesByParent = groupBy(
     budgetedCategories,
     (item) =>
@@ -73,9 +76,20 @@ function BudgetCategoryList({ budgetedCategories, allCategories, budget }) {
     budget.totalAmount - amountTaken - notBudgetedExpenses;
 
   return (
-    <div>
-      <ParentCategory name={budget.name} amount={restToSpent} />
+    <div
+      css={`
+        border-bottom: 5px solid ${({ theme }) => theme.colors.gray.light};
+      `}
+    >
+      <div>
+        <ParentCategory name={budget.name} amount={restToSpent} />
+      </div>
+
       <ToggleableList items={listItems} />
+      <ParentCategory
+        name={t("Other categories")}
+        amount={availableForRestCategories}
+      />
     </div>
   );
 }
