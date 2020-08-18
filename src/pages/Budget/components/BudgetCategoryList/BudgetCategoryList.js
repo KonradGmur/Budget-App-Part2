@@ -6,8 +6,14 @@ import ParentCategory from "./ParentCategory";
 import CategoryItem from "./CategoryItem";
 import { useTranslation } from "react-i18next";
 import "styled-components/macro";
+import { selectParentCategory } from "data/actions/budget.actions";
 
-function BudgetCategoryList({ budgetedCategories, allCategories, budget }) {
+function BudgetCategoryList({
+  budgetedCategories,
+  allCategories,
+  budget,
+  selectParentCategory,
+}) {
   const { t } = useTranslation();
   const budgetedCategoriesByParent = groupBy(
     budgetedCategories,
@@ -24,7 +30,10 @@ function BudgetCategoryList({ budgetedCategories, allCategories, budget }) {
       Trigger: ({ onClick }) => (
         <ParentCategory
           name={parentName}
-          onClick={() => onClick(parentName)}
+          onClick={() => {
+            onClick(parentName);
+            selectParentCategory(parentName);
+          }}
           categories={categories}
           transactions={budget.transactions}
         />
@@ -100,8 +109,13 @@ function BudgetCategoryList({ budgetedCategories, allCategories, budget }) {
     </div>
   );
 }
-export default connect((state) => ({
-  budgetCategories: state.budget.budgetCategories,
-  allCategories: state.common.allCategories,
-  budget: state.budget.budget,
-}))(BudgetCategoryList);
+export default connect(
+  (state) => ({
+    budgetCategories: state.budget.budgetCategories,
+    allCategories: state.common.allCategories,
+    budget: state.budget.budget,
+  }),
+  {
+    selectParentCategory,
+  }
+)(BudgetCategoryList);
