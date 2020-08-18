@@ -2,8 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { List, ListItem } from "./BudgetTransactionList.css";
 import { groupBy } from "lodash";
+import { formatCurrency, formatDate } from "utils";
 
-function BudgetTransactionList({ transactions }) {
+function BudgetTransactionList({ transactions, allCategories }) {
   const groupedTransactions = groupBy(transactions, (transaction) =>
     new Date(transaction.date).getUTCDate()
   );
@@ -16,9 +17,17 @@ function BudgetTransactionList({ transactions }) {
             {transactions.map((transaction) => (
               <ListItem>
                 <div>{transaction.description}</div>
-                <div>{transaction.amount}</div>
-                <div>{transaction.date}</div>
-                <div>{transaction.categoryId}</div>
+                <div>{formatCurrency(transaction.amount)}</div>
+                <div>{formatDate(transaction.date)}</div>
+                <div>
+                  {
+                    (
+                      allCategories.find(
+                        (category) => category.id === transaction.categoryId
+                      ) || {}
+                    ).name
+                  }
+                </div>
               </ListItem>
             ))}
           </ul>
@@ -33,4 +42,5 @@ function BudgetTransactionList({ transactions }) {
 
 export default connect((state) => ({
   transaction: state.budget.budget.transactions,
+  allCategories: state.common.allCategories,
 }))(BudgetTransactionList);
