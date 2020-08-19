@@ -27,15 +27,15 @@ function BudgetCategoryList({
     [budgetedCategories, allCategories]
   );
 
-  const handleClearParentCategorySelect = () => {
+  const handleClearParentCategorySelect = useCallback(() => {
     selectParentCategory();
     handleClickParentCategoryRef.current();
-  };
+  }, [selectParentCategory, handleClickParentCategoryRef]);
 
-  const handleSelectRestParentCategories = () => {
+  const handleSelectRestParentCategories = useCallback(() => {
     selectParentCategory(null);
     handleClickParentCategoryRef.current();
-  };
+  }, [selectParentCategory, handleClickParentCategoryRef]);
 
   const listItems = useMemo(
     () =>
