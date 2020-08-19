@@ -22,7 +22,13 @@ function BudgetCategoryList({
         .parentCategory.name
   );
 
-  console.log(budgetedCategoriesByParent);
+  const handleClearParentCategorySelect = () => {
+    selectParentCategory();
+  };
+
+  const handleSelectRestParentCategories = () => {
+    selectParentCategory(null);
+  };
 
   const listItems = Object.entries(budgetedCategoriesByParent).map(
     ([parentName, categories]) => ({
@@ -91,7 +97,11 @@ function BudgetCategoryList({
           border-bottom: 5px solid ${({ theme }) => theme.colors.gray.light};
         `}
       >
-        <ParentCategory name={budget.name} amount={restToSpent} />
+        <ParentCategory
+          name={budget.name}
+          amount={restToSpent}
+          onClick={handleClearParentCategorySelect}
+        />
       </div>
 
       <ToggleableList items={listItems} />
@@ -104,6 +114,7 @@ function BudgetCategoryList({
         <ParentCategory
           name={t("Other categories")}
           amount={availableForRestCategories}
+          onClick={handleSelectRestParentCategories}
         />
       </div>
     </div>
