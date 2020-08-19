@@ -9,10 +9,14 @@ function BudgetTransactionList({
   allCategories,
   selectedParentCategoryId,
 }) {
-  const filterTransactionsbySelectedParentCategory = transactions.filter(
-    (transaction) => {
+  const filterTransactionsbySelectedParentCategory = (() => {
+    if (typeof selectedParentCategoryId === "undefined") {
+      return transactions;
+    }
+
+    return transactions.filter((transaction) => {
       try {
-        const category = allCategories.finD(
+        const category = allCategories.find(
           (category) => category.id === transaction.categoryId
         );
         const parentCategoryName = category.parentCategory.name;
@@ -21,10 +25,12 @@ function BudgetTransactionList({
       } catch (error) {
         return false;
       }
-    }
-  );
-  const groupedTransactions = groupBy(transactions, (transaction) =>
-    new Date(transaction.date).getUTCDate()
+    });
+  })();
+
+  const groupedTransactions = groupBy(
+    filterTransactionsbySelectedParentCategory,
+    (transaction) => new Date(transaction.date).getUTCDate()
   );
 
   return (
