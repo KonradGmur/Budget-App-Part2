@@ -25,10 +25,12 @@ function BudgetCategoryList({
 
   const handleClearParentCategorySelect = () => {
     selectParentCategory();
+    handleClickParentCategoryRef.current();
   };
 
   const handleSelectRestParentCategories = () => {
     selectParentCategory(null);
+    handleClickParentCategoryRef.current();
   };
 
   const listItems = Object.entries(budgetedCategoriesByParent).map(
