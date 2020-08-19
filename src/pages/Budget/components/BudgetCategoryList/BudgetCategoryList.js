@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { connect } from "react-redux";
 import { groupBy } from "lodash";
 import { ToggleableList } from "components";
@@ -15,6 +15,7 @@ function BudgetCategoryList({
   selectParentCategory,
 }) {
   const { t } = useTranslation();
+  const handleClickParentCategoryRef = useRef(null);
   const budgetedCategoriesByParent = groupBy(
     budgetedCategories,
     (item) =>
@@ -104,7 +105,10 @@ function BudgetCategoryList({
         />
       </div>
 
-      <ToggleableList items={listItems} />
+      <ToggleableList
+        items={listItems}
+        clickRef={handleClickParentCategoryRef}
+      />
 
       <div
         css={`
