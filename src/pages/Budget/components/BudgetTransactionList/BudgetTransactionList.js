@@ -4,7 +4,25 @@ import { List, ListItem } from "./BudgetTransactionList.css";
 import { groupBy } from "lodash";
 import { formatCurrency, formatDate } from "utils";
 
-function BudgetTransactionList({ transactions, allCategories }) {
+function BudgetTransactionList({
+  transactions,
+  allCategories,
+  selectedParentCategoryId,
+}) {
+  const filterTransactionsbySelectedParentCategory = transactions.filter(
+    (transaction) => {
+      try {
+        const category = allCategories.finD(
+          (category) => category.id === transaction.categoryId
+        );
+        const parentCategoryName = category.parentCategory.name;
+
+        return parentCategoryName === selectedParentCategoryId;
+      } catch (error) {
+        return false;
+      }
+    }
+  );
   const groupedTransactions = groupBy(transactions, (transaction) =>
     new Date(transaction.date).getUTCDate()
   );
@@ -43,4 +61,5 @@ function BudgetTransactionList({ transactions, allCategories }) {
 export default connect((state) => ({
   transaction: state.budget.budget.transactions,
   allCategories: state.common.allCategories,
+  selectedParentCategoryId: state.budget.selectedParentCategoryId,
 }))(BudgetTransactionList);
